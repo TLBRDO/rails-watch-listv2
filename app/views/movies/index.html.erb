@@ -1,0 +1,12 @@
+<div class="container mt-3">
+  <h1>Movies list</h1>
+  <div class="d-flex justify-content-center">
+    <% @movies.each do |movie| %>
+      <div class="border text-center">
+        <%= image_tag "#{movie.poster_url}", height: "300px", class: "rounded-image" %>
+        <h3><%= movie.title %></h3>
+        <p><%= movie.overview %></p>
+      </div>
+    <% end %>
+  </div>
+</div>
