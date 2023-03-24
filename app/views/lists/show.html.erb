@@ -1,2 +1,20 @@
-<h1>Lists#show</h1>
-<p>Find me in app/views/lists/show.html.erb</p>
+<div class="container mt-3">
+  <h1><%= @list.name %></h1>
+  <div class="d-flex">
+    <% @list.movies.each do |movie| %>
+      <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
+      <%= image_tag "#{movie.poster_url}", height: "300px", class: "rounded-image" %>
+      <%= movie.title %>
+      <%= movie.overview %>
+      <p>"<em><%= bookmark.comment %></em>"</p>
+      <%= link_to "delete", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to remove #{movie.title} from your #{@list.name} list"}, class: 'text-danger' %>
+    <% end %>
+  </div>
+
+  <%= simple_form_for [@list, @bookmark] do |f| %>
+    <%= f.association :movie, collection: Movie.all.order(:title), prompt: "Select a movie"%>
+    <%= f.input :comment, placeholder: "Enter a comment about the movie" %>
+    <%= f.button :submit %>
+  <% end %>
+  <%= link_to "HOME", lists_path %>
+</div>

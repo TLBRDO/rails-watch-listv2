@@ -12,13 +12,14 @@ class BookmarksController < ApplicationController
     if @bookmark.save
       redirect_to list_path(@list)
     else
-      render :new, status: :unprocessable_entity
+      flash[:alert] = @bookmark.errors.full_messages.join(", ")
+      render :new
     end
   end
 
   def destroy
     @bookmark.destroy
-    redirect_to list_path(@bookmark.list), status: :see_other
+    redirect_to list_path(@bookmark.list)
   end
 
   private
@@ -32,6 +33,6 @@ class BookmarksController < ApplicationController
   end
 
   def bookmark_params
-    params.require(:bookmark).permit(:comment, :movie_id, :list_id)
+    params.require(:bookmark).permit(:comment, :movie_id)
   end
 end
