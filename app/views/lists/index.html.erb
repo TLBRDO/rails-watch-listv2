@@ -1,7 +1,9 @@
-<% @lists.each do |list| %>
-  <%= link_to list_path(list) do %>
-    <h1><%= list.name %></h1>
+<div class="container mt-3">
+  <% @lists.each do |list| %>
+    <%= link_to list_path(list) do %>
+      <h1><%= list.name %></h1>
+    <% end %>
   <% end %>
-<% end %>
 
-<%= link_to "Create a new list", new_list_path %>
+  <%= link_to "Create a new list", new_list_path %>
+</div>
