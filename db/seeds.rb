@@ -11,7 +11,6 @@ require 'open-uri'
 puts 'Deleting all the movies...'
 Movie.destroy_all
 
-
 url = "https://tmdb.lewagon.com/movie/top_rated"
 
 puts 'Importing movies...'

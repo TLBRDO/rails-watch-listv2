@@ -2,14 +2,16 @@
   <h1><%= @list.name %></h1>
   <div class="d-flex">
     <% @list.movies.each do |movie| %>
-      <div class="d-block mx-3">
-        <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
-        <%= image_tag "#{movie.poster_url}", height: "300px", class: "rounded-image" %>
-        <%= movie.title %>
-        <%= movie.overview %>
-        <p>"<em><%= bookmark.comment %></em>"</p>
-        <%= link_to "delete", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to remove #{movie.title} from your #{@list.name} list"}, class: 'text-danger' %>
-      </div>
+      <%= link_to movie_path do %>
+        <div class="d-block mx-3">
+          <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
+          <%= image_tag "#{movie.poster_url}", height: "300px", class: "rounded-image" %>
+          <%= movie.title %>
+          <%= movie.overview.truncate(25, omission: '... (continued)') %>
+          <p>"<em><%= bookmark.comment %></em>"</p>
+          <%= link_to "delete", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to remove #{movie.title} from your #{@list.name} list"}, class: 'text-danger' %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 
